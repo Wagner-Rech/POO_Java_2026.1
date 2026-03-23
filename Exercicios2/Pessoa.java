@@ -18,9 +18,17 @@ public Pessoa{
 	}
 	public Pessoa(String name, Data data, Contato cont){
 		this.nome = new String(name);
-		this.data_nascimento = Data(data);
+		this.data_nascimento = new Data(data);
 		this.contatos[0] = new Contato(cont);
 		count = 1;
+	}
+	public Pessoa(Pessoa pessoa){
+		this.nome = new String(pessoa.nome);
+		this.data_nascimento = new Data(pessoa.data_nascimento);
+		this.size = pessoa.size;
+		for(int i = 0; i < pessoa.size; i++){
+			contatos[i] = new Contato(pessoa.contatos[i]);
+		}
 	}
 	public void cadastraContato(Contato cont[]){
 		for(int i = 0; i + this.count < 4; i++){
@@ -46,7 +54,7 @@ public Pessoa{
 			this.count++;
 		}
 	}
-	public void listaContatos(){
+	public void listarContatos(){
 		for(int i = 0; i < count; i++){
 			contatos[i].listar();
 		}
@@ -65,5 +73,12 @@ public Pessoa{
 			contatos[ordem-1] = new Contato();
 			this.count-=1;
 		}
+	}
+	public void listarPessoa(){
+		System.out.println(this.nome + " | " + data_nascimento.passarData());
+	}
+	public void listarDados(){
+		listarPessoa();
+		listarContatos();
 	}
 }

@@ -10,4 +10,7 @@ public class Data{
 		this.mes = data.mes;
 		this.ano = data.ano;
 	}
+	public String passarData(){
+		String st = this.dia + "/" + this.mes + "/" + this.ano; 
+	}
 }
