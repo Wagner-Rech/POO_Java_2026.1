@@ -1,7 +1,12 @@
-public Contato{
+public class Contato{
 	boolean whats;
 	boolean telegram;
 	String numero;
+	public Contato(){
+		this.whats = false;
+		this.telegram = false;
+		this.numero = new String();
+	}
 	public Contato(String num, boolean wht, boolean tele){
 		this.numero = new String(num);
 		this.whats = wht;
@@ -13,20 +18,20 @@ public Contato{
 		this.telegram = cont.telegram;
 	}
 	public String redes(){
-		String answer = new String;
-		if(whats == 1){
-			if(telegram == 1){
+		String answer = new String();
+		if(whats == true){
+			if(telegram == true){
 				answer = "Whatsapp e Telegram";
 			}
 			else{
 				answer = "Whatsapp";
 			}
 		}
-		else if(telegram == 1) answer = "Telegram";
+		else if(telegram == true) answer = "Telegram";
 		else answer = "Nenhuma";
 		return answer;
 	}
-	public String listar(){
+	public void listar(){
 		System.out.println(numero + " | " + redes());
 	}
 }

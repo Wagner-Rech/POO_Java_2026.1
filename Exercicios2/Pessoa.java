@@ -1,12 +1,17 @@
-public Pessoa{
+public class Pessoa{
 	String nome;
 	Data data_nascimento;
 	Contato contatos[] = new Contato[4];
 	int count;
-	public Pessoa(String name, Data data, Contato cont[]){
+	public Pessoa(){
+		this.nome = new String();
+		this.data_nascimento = new Data();
+		this.contatos = new Contato[4];
+	}
+	public Pessoa(String name, Data data, Contato cont[], int size){
 		this.nome = new String(name);
-		this.data_nascimento = Data(data);
-		int size = cont.size();
+		this.data_nascimento = new Data(data);
+		this.contatos = new Contato[4];
 		if(size > 4){
 			size = 4;
 			System.out.println("Erro, contatos demais configurados. Apenas os quatro primeiros foram configurados");
@@ -14,36 +19,38 @@ public Pessoa{
 		for(int i = 0; i < size; i++){
 			this.contatos[i] = cont[i];
 		}
-		count = size;
+		this.count = size;
 	}
 	public Pessoa(String name, Data data, Contato cont){
+		this.contatos = new Contato[4];
 		this.nome = new String(name);
 		this.data_nascimento = new Data(data);
 		this.contatos[0] = new Contato(cont);
 		count = 1;
 	}
 	public Pessoa(Pessoa pessoa){
+		this.contatos = new Contato[4];
 		this.nome = new String(pessoa.nome);
 		this.data_nascimento = new Data(pessoa.data_nascimento);
-		this.size = pessoa.size;
-		for(int i = 0; i < pessoa.size; i++){
+		this.count = pessoa.count;
+		for(int i = 0; i < pessoa.count; i++){
 			contatos[i] = new Contato(pessoa.contatos[i]);
 		}
 	}
-	public void cadastraContato(Contato cont[]){
-		for(int i = 0; i + this.count < 4; i++){
+	public void cadastraContato(Contato cont[], int size){
+		for(int i = 0; i + this.count < 4 && i < size; i++){
 			contatos[i + this.count] = cont[i];
 		}
 		if(this.count >= 4){
 			System.out.println("Erro, já existem 4 contatos, delete um antes de prosseguir");
 		}
-		else if(cont.size() + this.count >= 4){
-			if(cont.size() > 4) System.out.println("Erro, tentativa de cadastrar mais de 4 contatos");
+		else if(size + this.count > 4){
+			if(size > 4) System.out.println("Erro, tentativa de cadastrar mais de 4 contatos");
 			int registrados = 4 - this.count;
 			System.out.println("Erro, foi possivel registrar apenas os primeiros " + registrados + " contatos");
 			this.count = 4;
 		}
-		else this.count+= cont.size();
+		else this.count+= size;
 	}
 	public void cadastraContato(Contato cont){
 		if(this.count >= 4){
@@ -64,6 +71,7 @@ public Pessoa{
 		else if(ordem < this.count){
 			contatos[ordem-1] = contatos[this.count-1];
 			contatos[this.count-1] = new Contato();
+			this.count-=1;
 		}
 		else{
 			if(ordem == 1){
